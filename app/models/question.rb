@@ -19,5 +19,6 @@
 #
 class Question < ApplicationRecord
     has_many :options
+    belongs_to :survey
   enum question_type: [:text, :choice], _default: :text
 end
