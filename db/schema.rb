@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_09_025942) do
+ActiveRecord::Schema.define(version: 2022_08_09_030209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 2022_08_09_025942) do
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
+  create_table "responses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "body"
+    t.uuid "question_id", null: false
+    t.uuid "option_id", null: false
+    t.uuid "feedback_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feedback_id"], name: "index_responses_on_feedback_id"
+    t.index ["option_id"], name: "index_responses_on_option_id"
+    t.index ["question_id"], name: "index_responses_on_question_id"
+  end
+
   create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -50,4 +62,7 @@ ActiveRecord::Schema.define(version: 2022_08_09_025942) do
   add_foreign_key "feedbacks", "surveys"
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "surveys"
+  add_foreign_key "responses", "feedbacks"
+  add_foreign_key "responses", "options"
+  add_foreign_key "responses", "questions"
 end
