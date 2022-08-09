@@ -38,6 +38,7 @@ group :development do
 
   gem 'rubocop'
   gem 'rubocop-performance'
+  gem 'rubocop-rspec-focused'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'guard-rubocop'
