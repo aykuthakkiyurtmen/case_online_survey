@@ -20,5 +20,6 @@
 class Question < ApplicationRecord
     has_many :options
     belongs_to :survey
-  enum question_type: [:text, :choice], _default: :text
+    validates :title, length: { maximum: 200}, presence: true
+    enum question_type: [:text, :choice], _default: :text
 end

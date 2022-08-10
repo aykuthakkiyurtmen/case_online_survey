@@ -2,15 +2,18 @@ class Api::V1::SurveysController < ApplicationController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
   include ResponseForm
+  include Errors
 
   def create
-    feedback = built_response_and_feedback
+    feedback = build_response
+    return if feedback.nil?
 
     Response.transaction do
       feedback.save!
-
       @response.feedback_id = feedback.id
+
       @response.save!
+      render json: @response.body, status: :created
     end
   end
 
@@ -22,14 +25,23 @@ class Api::V1::SurveysController < ApplicationController
     render json: SurveySerializer.new(survey, options)
   end
 
-
   private
 
-  def built_response_and_feedback
-    object = ResponseForm::Test.new(params[:body], params[:question], params[:title])
+  def build_response
+    object = ResponseForm::Form.new(params[:body], params[:question], params[:title])
     @response = object.form_object
-    feedback = Feedback.new
 
+    @error = Errors::error(@response)
+     if @error[:status] == 'error'
+       render json: @error[:message]
+       return
+     end
+
+    build_feedback(object)
+  end
+
+  def build_feedback(object)
+    feedback = Feedback.new
     feedback.survey_id = object.survey_id
     feedback
   end

@@ -1,21 +1,22 @@
 module ResponseForm
-  class Test
+  class Form
     include ActiveModel::AttributeAssignment
+    include ActiveModel::Validations
+
     attr_accessor :body, :question, :option
 
     def initialize(body, question, option)
       @body = body
       @question = question
       @option = option
-      find_question_id_by_title
-      find_option_id_by_title
     end
 
     def form_object
+      find_question_id_by_title
       response = Response.new
       response.assign_attributes(question_id: @question_id, body:
         @body, option_id: @option&.id)
-      response
+      response.valid? ? response : response.errors.full_messages
     end
 
     def survey_id
@@ -26,11 +27,16 @@ module ResponseForm
 
     def find_question_id_by_title
       @question = Question.find_by(title: @question)
-      @question_id = @question.id
+      set_question_id if @question.present?
+      find_option_by_title
     end
 
-    def find_option_id_by_title
+    def find_option_by_title
       @option = Option.find_by(title: @option)
+    end
+
+    def set_question_id
+      @question_id = @question.id
     end
   end
 end
