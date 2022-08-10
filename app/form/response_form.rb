@@ -8,13 +8,13 @@ module ResponseForm
       @question = question
       @option = option
       find_question_id_by_title
-      find_question_id_by_option
+      find_option_id_by_title
     end
 
     def form_object
       response = Response.new
       response.assign_attributes(question_id: @question_id, body:
-        @body, option_id: @option_id)
+        @body, option_id: @option&.id)
       response
     end
 
@@ -29,8 +29,8 @@ module ResponseForm
       @question_id = @question.id
     end
 
-    def find_question_id_by_option
-      @option_id = Option.find_by(title: @option).id
+    def find_option_id_by_title
+      @option = Option.find_by(title: @option)
     end
   end
 end

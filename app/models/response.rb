@@ -7,7 +7,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  feedback_id :uuid             not null
-#  option_id   :uuid             not null
+#  option_id   :uuid
 #  question_id :uuid             not null
 #
 # Indexes

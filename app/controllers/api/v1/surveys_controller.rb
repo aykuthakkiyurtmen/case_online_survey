@@ -26,11 +26,11 @@ class Api::V1::SurveysController < ApplicationController
   private
 
   def built_response_and_feedback
-    object = ResponseForm::Test.new(params[:body], params[:question], params[:option])
+    object = ResponseForm::Test.new(params[:body], params[:question], params[:title])
     @response = object.form_object
     feedback = Feedback.new
 
-    feedback.survey_id =object.survey_id
+    feedback.survey_id = object.survey_id
     feedback
   end
 end
