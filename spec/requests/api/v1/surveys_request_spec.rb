@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Surveys", type: :request do
   private
 
     def post_request(body, question, option = nil)
-      post "/api/v1/surveys/1", params:
+      post "/api/v1/surveys/#{survey.id}", params:
         {
           body: body,
           question: question,
