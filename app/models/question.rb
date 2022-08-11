@@ -18,7 +18,7 @@
 #  fk_rails_...  (survey_id => surveys.id)
 #
 class Question < ApplicationRecord
-  has_many :options
+  has_many :options , dependent: :destroy
   belongs_to :survey
 
   validates :title, length: { maximum: 200 }, presence: true

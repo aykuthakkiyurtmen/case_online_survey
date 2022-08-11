@@ -12,7 +12,7 @@
 #  index_surveys_on_name  (name) UNIQUE
 #
 class Survey < ApplicationRecord
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   validates :name, length: { maximum: 40 }, presence: true
 end
