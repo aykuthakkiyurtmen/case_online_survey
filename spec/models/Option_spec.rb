@@ -11,8 +11,9 @@
 #
 #  index_surveys_on_name  (name) UNIQUE
 #
-class Survey < ApplicationRecord
-  has_many :questions
+require "rails_helper"
 
-  validates :name, length: { maximum: 40 }, presence: true
+RSpec.describe Option, type: :model do
+  it { should validate_length_of(:title).is_at_most(40)}
+  it { is_expected.to validate_presence_of(:title) }
 end

@@ -23,5 +23,5 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 class Response < ApplicationRecord
-  validates :body, length: { maximum: 200 }
+  validates :body, length: { maximum: 200 }, presence: true
 end

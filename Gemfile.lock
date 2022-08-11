@@ -254,6 +254,8 @@ GEM
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
     shellany (0.0.1)
+    shoulda-matchers (5.1.0)
+      activesupport (>= 5.2.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -322,6 +324,7 @@ DEPENDENCIES
   rubocop-rspec-focused
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  shoulda-matchers
   simplecov
   tzinfo-data
   web-console (>= 4.1.0)

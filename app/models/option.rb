@@ -17,4 +17,5 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 class Option < ApplicationRecord
+  validates :title, length: { maximum: 40 }, presence: true
 end
