@@ -1,15 +1,20 @@
 # == Schema Information
 #
-# Table name: surveys
+# Table name: options
 #
-#  id         :uuid             not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :uuid             not null, primary key
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  question_id :uuid             not null
 #
 # Indexes
 #
-#  index_surveys_on_name  (name) UNIQUE
+#  index_options_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (question_id => questions.id)
 #
 require "rails_helper"
 

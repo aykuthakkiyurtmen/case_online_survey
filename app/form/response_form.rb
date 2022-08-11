@@ -14,9 +14,11 @@ module ResponseForm
 
     def form_object
       find_question_id_by_title
+
       response = Response.new
       response.assign_attributes(question_id: @question_id, body:
         body, option_id: @option&.id)
+
       response.valid? ? response : response.errors.full_messages
     end
 
@@ -29,6 +31,7 @@ module ResponseForm
       def find_question_id_by_title
         survey = Survey.find(survey_id)
         @question = survey.questions.find_by(title: question_title)
+
         set_question_id if @question.present?
         find_option_by_title if @question.present?
       end
