@@ -28,7 +28,7 @@ class Api::V1::SurveysController < ApplicationController
   private
 
     def build_response
-      object = ResponseForm::Form.new(params[:body], params[:question], params[:option])
+      object = ResponseForm::Form.new(params[:body], params[:question], params[:option], params[:id] )
       @response = object.form_object
       @error = Errors.error(@response)
       if @error[:status] == "error"
@@ -41,7 +41,7 @@ class Api::V1::SurveysController < ApplicationController
 
     def build_feedback(object)
       feedback = Feedback.new
-      feedback.survey_id = object.survey_id
+      feedback.survey_id = object.set_survey_id
       feedback
     end
 end
