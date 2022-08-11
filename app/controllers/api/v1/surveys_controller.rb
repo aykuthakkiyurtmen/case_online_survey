@@ -27,22 +27,21 @@ class Api::V1::SurveysController < ApplicationController
 
   private
 
-  def build_response
-    object = ResponseForm::Form.new(params[:body], params[:question], params[:title])
-    @response = object.form_object
+    def build_response
+      object = ResponseForm::Form.new(params[:body], params[:question], params[:option])
+      @response = object.form_object
+      @error = Errors.error(@response)
+      if @error[:status] == "error"
+        render json: @error[:message], status: :unprocessable_entity
+        return
+      end
 
-    @error = Errors::error(@response)
-     if @error[:status] == 'error'
-       render json: @error[:message]
-       return
-     end
+      build_feedback(object)
+    end
 
-    build_feedback(object)
-  end
-
-  def build_feedback(object)
-    feedback = Feedback.new
-    feedback.survey_id = object.survey_id
-    feedback
-  end
+    def build_feedback(object)
+      feedback = Feedback.new
+      feedback.survey_id = object.survey_id
+      feedback
+    end
 end

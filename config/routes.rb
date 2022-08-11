@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :surveys, only: [:show] do
         collection do
-          post '/:id' => 'surveys#create'
+          post "/:id" => "surveys#create"
         end
       end
     end

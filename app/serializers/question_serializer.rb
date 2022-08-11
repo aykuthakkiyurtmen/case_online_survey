@@ -23,5 +23,5 @@ class QuestionSerializer
 
   attributes :options do |object|
     object.options.map { |obj| obj.title }
-      end
+  end
 end

@@ -42,6 +42,7 @@
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.8.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="annotate (v3.2.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ast (v2.4.2, rbenv: 2.6.9) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="awesome_print (v1.8.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.13.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, rbenv: 2.6.9) [gem]" level="application" />
@@ -112,6 +113,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rubocop-performance (v1.14.3, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.15.2, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rspec (v2.12.1, rbenv: 2.6.9) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop-rspec-focused (v1.0.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.11.0, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v2.3.2, rbenv: 2.6.9) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v6.0.0, rbenv: 2.6.9) [gem]" level="application" />

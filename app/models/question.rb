@@ -18,8 +18,8 @@
 #  fk_rails_...  (survey_id => surveys.id)
 #
 class Question < ApplicationRecord
-    has_many :options
-    belongs_to :survey
-    validates :title, length: { maximum: 200}, presence: true
-    enum question_type: [:text, :choice], _default: :text
+  has_many :options
+  belongs_to :survey
+  validates :title, length: { maximum: 200 }, presence: true
+  enum question_type: %i[text choice], _default: :text
 end

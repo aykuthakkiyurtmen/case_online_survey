@@ -25,18 +25,18 @@ module ResponseForm
 
     private
 
-    def find_question_id_by_title
-      @question = Question.find_by(title: @question)
-      set_question_id if @question.present?
-      find_option_by_title
-    end
+      def find_question_id_by_title
+        @question = Question.find_by(title: @question)
+        set_question_id if @question.present?
+        find_option_by_title
+      end
 
-    def find_option_by_title
-      @option = Option.find_by(title: @option)
-    end
+      def find_option_by_title
+        @option = Option.find_by(title: @option)
+      end
 
-    def set_question_id
-      @question_id = @question.id
-    end
+      def set_question_id
+        @question_id = @question.id
+      end
   end
 end
