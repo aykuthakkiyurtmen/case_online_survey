@@ -13,7 +13,7 @@
 #
 require "rails_helper"
 
-RSpec.describe Survey, type: :model do
-  it { should validate_length_of(:name).is_at_most(40)}
-  it { is_expected.to validate_presence_of(:name) }
+RSpec.describe Question, type: :model do
+  it { should validate_length_of(:title).is_at_most(200)}
+  it { is_expected.to validate_presence_of(:title) }
 end
