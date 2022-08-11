@@ -33,6 +33,8 @@ group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
+gem 'simplecov', require: false, group: :test
+
 group :development do
   gem "annotate"
 
