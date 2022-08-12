@@ -1,10 +1,10 @@
 class Api::V1::SurveysController < ApplicationController
   protect_from_forgery with: :null_session
-  skip_before_action :verify_authenticity_token
-  include ResponseForm
   include Errors
 
   def create
+    return build_bulk_response if params[:posts_list].present?
+
     feedback = build_response
     return if feedback.nil?
 
@@ -16,6 +16,7 @@ class Api::V1::SurveysController < ApplicationController
       render json: @response.body, status: :created
     end
   end
+
 
   def show
     survey = Survey.find(params[:id])
@@ -40,7 +41,15 @@ class Api::V1::SurveysController < ApplicationController
       build_feedback(object)
     end
 
-    def build_feedback(object)
+  def build_bulk_response
+    params[:posts_list].each do |post_params|
+      BulkForm::FORM.build_bulk_response(post_params, params[:id])
+    end
+
+    render json: "feedbacks are added", status: :created
+  end
+
+  def build_feedback(object)
       feedback = Feedback.new
       feedback.survey_id = object.set_survey_id
 
