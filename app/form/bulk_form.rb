@@ -3,7 +3,6 @@ module BulkForm
     include ActiveModel::Validations
 
     def self.build_bulk_response(post_params, id)
-      @a = 5
       Response.transaction do
         feedback = Feedback.new
         feedback.survey_id = id
