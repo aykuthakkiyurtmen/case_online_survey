@@ -14,7 +14,7 @@ module BulkForm
         response.body = post_params["body"] if (question.question_type == "text")
 
         if response.body.nil? and response.option.nil? || !response.valid?
-          return @errors
+          return
         end
         response.save!
       end
