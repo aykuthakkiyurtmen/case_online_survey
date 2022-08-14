@@ -6,6 +6,7 @@ class Api::V1::SurveysController < ApplicationController
     return build_bulk_response if params[:posts_list].present?
 
     feedback = build_response
+
     return if feedback.nil?
 
     Response.transaction do
@@ -17,7 +18,6 @@ class Api::V1::SurveysController < ApplicationController
     end
   end
 
-
   def show
     survey = Survey.find(params[:id])
     options = {
@@ -28,31 +28,39 @@ class Api::V1::SurveysController < ApplicationController
 
   private
 
-    def build_response
-      object = ResponseForm::Form.new(params[:body], params[:question], params[:option], params[:id] )
-      @response = object.form_object
-      @error = Errors.error(@response)
+  def build_response
+    object = ResponseForm::Form.new(params[:body], params[:question], params[:option], params[:id])
+    @response = object.form_object
 
-      if @error[:status] == "error"
-        render json: @error[:message], status: :unprocessable_entity
-        return
-      end
+    @error = Errors.error(@response)
 
-      build_feedback(object)
+    if @error[:status] == "error"
+      render json: @error[:message], status: :unprocessable_entity
+      return
     end
 
+    build_feedback(object)
+  end
+
   def build_bulk_response
+    find_survey
+
+    feedback = Feedback.new(survey: @survey)
     params[:posts_list].each do |post_params|
-      BulkForm::FORM.build_bulk_response(post_params, params[:id])
+      BulkForm::FORM.build_bulk_response(post_params, feedback, @survey)
     end
 
     render json: "feedbacks are added", status: :created
   end
 
-  def build_feedback(object)
-      feedback = Feedback.new
-      feedback.survey_id = object.set_survey_id
+  def find_survey
+    @survey = Survey.find(params[:id])
+  end
 
-      feedback
-    end
+  def build_feedback(object)
+    feedback = Feedback.new
+    feedback.survey_id = object.set_survey_id
+
+    feedback
+  end
 end

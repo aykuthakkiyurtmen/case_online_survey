@@ -41,7 +41,7 @@ RSpec.describe "Api::V1::Surveys", type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
       expect(Response.count).to eq(0)
 
-      expect(response.body).to eq("missing or wrong question title")
+      expect(response.body).to eq("validation error: [\"Question must exist\"]")
     end
 
     it "when question is bot exist to create it should return error" do

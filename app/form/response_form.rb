@@ -28,20 +28,20 @@ module ResponseForm
 
     private
 
-      def find_question_id_by_title
-        survey = Survey.find(survey_id)
-        @question = survey.questions.find_by(title: question_title)
+    def find_question_id_by_title
+      survey = Survey.find(survey_id)
+      @question = survey.questions.find_by(title: question_title)
 
-        set_question_id if @question.present?
-        find_option_by_title if @question.present?
-      end
+      set_question_id if @question.present?
+      find_option_by_title if @question.present?
+    end
 
-      def find_option_by_title
-        @option = @question.options.find_by(title: option_title)
-      end
+    def find_option_by_title
+      @option = @question.options.find_by(title: option_title)
+    end
 
-      def set_question_id
-        @question_id = @question.id
-      end
+    def set_question_id
+      @question_id = @question.id
+    end
   end
 end

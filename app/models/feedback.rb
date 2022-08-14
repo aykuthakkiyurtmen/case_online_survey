@@ -16,4 +16,5 @@
 #  fk_rails_...  (survey_id => surveys.id)
 #
 class Feedback < ApplicationRecord
+  belongs_to :survey
 end

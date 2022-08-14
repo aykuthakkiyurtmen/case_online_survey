@@ -23,5 +23,7 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 class Response < ApplicationRecord
+  belongs_to :option, optional: true
+  belongs_to :question
   validates :body, length: { maximum: 200 }
 end
