@@ -1,7 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Surveys", type: :request do
-  let(:survey) { Survey.create!(name: "musteri memnuniyeti") }
+  let!(:survey) { create(:survey) }
+  let!(:question) do
+    create(:question, survey_id: survey.id, question_type: 1, title: "test question")
+  end
+  let!(:question_two) do
+    create(:question, survey_id: survey.id, question_type: 0, title: "test question2")
+  end
+  let!(:option_one) { create(:option, question_id: question.id, title: "haftada bir") }
+  let!(:option_two) { create(:option, question_id: question.id, title: "ayda bir") }
 
   before do
     question = Question.create!(title: "test", question_type: 1, survey_id: survey.id)
@@ -57,14 +65,34 @@ RSpec.describe "Api::V1::Surveys", type: :request do
     end
   end
 
+  describe "Post #survey bulk" do
+    it "create response with option successfully" do
+      assert_difference("Feedback.count") do
+        bulk_post_request("", question.id, option_one.id)
+      end
+
+      expect(response).to have_http_status(:created)
+      expect(Response.count).to eq(1)
+    end
+
+    it "create response with text successfully" do
+      assert_difference("Feedback.count") do
+        bulk_post_request("test", question_two.id)
+      end
+
+      expect(response).to have_http_status(:created)
+      expect(Response.count).to eq(1)
+    end
+  end
+
   describe "Get #survey" do
     it "returns a list of survey" do
       survey_id = survey.id
       get "/api/v1/surveys/#{survey_id}"
       expect(response).to have_http_status(:ok)
 
-      expect(parsed_response_body["data"]["attributes"]["name"]).to eq("musteri memnuniyeti")
-      expect(parsed_response_body["included"][0]["attributes"]["title"]).to eq("test")
+      expect(parsed_response_body["data"]["attributes"]["name"]).to eq("test survey")
+      expect(parsed_response_body["included"][0]["attributes"]["title"]).to eq("test question")
       expect(parsed_response_body["included"][0]["attributes"]["options"]).to eq(["haftada bir",
                                                                                   "ayda bir"])
     end
@@ -78,6 +106,19 @@ RSpec.describe "Api::V1::Surveys", type: :request do
           body: body,
           question: question,
           option: option
+        }
+    end
+
+    def bulk_post_request(body, question, option = {})
+      post "/api/v1/surveys/#{survey.id}", params:
+        {
+          posts_list: [
+            {
+              body: body,
+              question: question,
+              option: option
+            }
+          ]
         }
     end
 end

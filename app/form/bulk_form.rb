@@ -10,12 +10,13 @@ module BulkForm
         response.feedback_id = feedback.id
         question = survey.questions.find(post_params["question"])
         response.question = question
-        response.option = question.options.find(post_params["option"]) unless post_params["option"].nil?
-        response.body = post_params["body"] if (question.question_type == "text")
-
-        if response.body.nil? and response.option.nil? || !response.valid?
-          return
+        unless post_params["option"].nil?
+          response.option = question.options.find(post_params["option"])
         end
+        response.body = post_params["body"] if question.question_type == "text"
+
+        return if response.body.nil? and response.option.nil? || !response.valid?
+
         response.save!
       end
     end

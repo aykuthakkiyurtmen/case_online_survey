@@ -23,6 +23,7 @@ class Question < ApplicationRecord
   belongs_to :survey
 
   validates :title, length: { maximum: 200 }, presence: true
+  validates :question_type, presence: true
 
   enum question_type: %i[text choice], _default: :text
 end

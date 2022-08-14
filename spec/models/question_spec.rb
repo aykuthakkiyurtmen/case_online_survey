@@ -20,6 +20,17 @@
 require "rails_helper"
 
 RSpec.describe Question, type: :model do
-  it { should validate_length_of(:title).is_at_most(200)}
-  it { is_expected.to validate_presence_of(:title) }
+  let(:question) { create(:question) }
+
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_length_of(:title).is_at_most(200) }
+    it { is_expected.to validate_presence_of(:question_type) }
+  end
+
+  describe "relations" do
+    it { is_expected.to have_many(:options) }
+    it { is_expected.to have_many(:responses) }
+    it { is_expected.to belong_to(:survey) }
+  end
 end

@@ -19,6 +19,13 @@
 require "rails_helper"
 
 RSpec.describe Option, type: :model do
-  it { should validate_length_of(:title).is_at_most(40)}
+  let(:option) { create(:option) }
+
+  it { is_expected.to validate_length_of(:title).is_at_most(40) }
   it { is_expected.to validate_presence_of(:title) }
+
+  describe "relations" do
+    it { is_expected.to have_many(:responses) }
+    it { is_expected.to belong_to(:question) }
+  end
 end

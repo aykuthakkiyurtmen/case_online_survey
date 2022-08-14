@@ -25,6 +25,14 @@
 require "rails_helper"
 
 RSpec.describe Response, type: :model do
-  it { should validate_length_of(:body).is_at_most(200)}
-  it { is_expected.to validate_presence_of(:body) }
+  let(:response) { create(:response) }
+
+  describe "validations" do
+    it { is_expected.to validate_length_of(:body).is_at_most(200) }
+  end
+
+  describe "relations" do
+    it { is_expected.to belong_to(:question) }
+    it { is_expected.to belong_to(:option).optional }
+  end
 end
