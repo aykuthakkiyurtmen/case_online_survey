@@ -15,5 +15,5 @@ Things you may want to cover:
 
 * strong params yerine form object ile hatalari daha detayli handle edecek bir yapi kurdum. aslinda gerekli degil ama yine farkli sey deneyeyim dedim.
 
-* Case'in oldugu gibi cozumu zaten cok daha kisa ve basit sonuclandirilabilir. biraz farkli seyler denemek istedim. 
+* Case'in oldugu gibi cozumu zaten cok daha kisa ve basit sonuclandirilabilir. biraz farkli seyler denemek istedim. (yani standart disi senaryoda ne yapabilirim gormek icin) 
 
