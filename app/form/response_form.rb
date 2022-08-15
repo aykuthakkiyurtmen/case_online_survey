@@ -22,10 +22,6 @@ module ResponseForm
       response.valid? ? response : response.errors.full_messages
     end
 
-    def set_survey_id
-      survey_id
-    end
-
     private
 
     def find_question_id_by_title
