@@ -4,9 +4,7 @@ class Api::V1::SurveysController < ApplicationController
 
   def create
     return build_bulk_response if params[:posts_list].present?
-
     feedback = build_response
-
     return if feedback.nil?
 
     Response.transaction do
@@ -32,10 +30,9 @@ class Api::V1::SurveysController < ApplicationController
     object = ResponseForm::Form.new(params[:body], params[:question], params[:option],
                                     params[:id])
     @response = object.form_object
-
     @error = Errors.error(@response)
 
-    if @error[:status] == "error"
+    if @error[:status] == 'error'
       render json: @error[:message], status: :unprocessable_entity
       return
     end
@@ -48,8 +45,7 @@ class Api::V1::SurveysController < ApplicationController
     feedback = Feedback.new(survey: @survey)
 
     BulkForm::FORM.build_bulk_response(params[:posts_list], feedback, @survey)
-
-    render json: "feedbacks are added", status: :created
+    render json: 'feedbacks are added', status: :created
   end
 
   def find_survey

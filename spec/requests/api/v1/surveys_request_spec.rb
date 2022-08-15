@@ -2,12 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Surveys", type: :request do
   let!(:survey) { create(:survey) }
+
   let!(:question) do
     create(:question, survey_id: survey.id, question_type: 1, title: "test question")
   end
+
   let!(:question_two) do
     create(:question, survey_id: survey.id, question_type: 0, title: "test question2")
   end
+
   let!(:option_one) { create(:option, question_id: question.id, title: "haftada bir") }
   let!(:option_two) { create(:option, question_id: question.id, title: "ayda bir") }
 
@@ -100,25 +103,25 @@ RSpec.describe "Api::V1::Surveys", type: :request do
 
   private
 
-    def post_request(body, question, option = nil)
-      post "/api/v1/surveys/#{survey.id}", params:
-        {
-          body: body,
-          question: question,
-          option: option
-        }
-    end
+  def post_request(body, question, option = nil)
+    post "/api/v1/surveys/#{survey.id}", params:
+      {
+        body: body,
+        question: question,
+        option: option
+      }
+  end
 
-    def bulk_post_request(body, question, option = {})
-      post "/api/v1/surveys/#{survey.id}", params:
-        {
-          posts_list: [
-            {
-              body: body,
-              question: question,
-              option: option
-            }
-          ]
-        }
-    end
+  def bulk_post_request(body, question, option = {})
+    post "/api/v1/surveys/#{survey.id}", params:
+      {
+        posts_list: [
+          {
+            body: body,
+            question: question,
+            option: option
+          }
+        ]
+      }
+  end
 end

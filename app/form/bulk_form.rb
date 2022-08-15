@@ -8,14 +8,14 @@ module BulkForm
         post_list.each do |post_params|
           response = Response.new
           response.feedback_id = feedback.id
-          question = survey.questions.find(post_params["question"])
+          question = survey.questions.find(post_params['question'])
           response.question = question
 
-          unless post_params["option"].nil?
-            response.option = question.options.find(post_params["option"])
+          unless post_params['option'].nil?
+            response.option = question.options.find(post_params['option'])
           end
 
-          response.body = post_params["body"] if question.question_type == "text"
+          response.body = post_params['body'] if question.question_type == 'text'
 
            if response.body.nil? and response.option.nil? || !response.valid?
              # this business can be used to handle errors for missing responses.
@@ -25,7 +25,6 @@ module BulkForm
              # @errors << { errors: response.errors, status: :unprocessable_entity, answer: }
              return
            end
-
           response.save!
         end
       end
