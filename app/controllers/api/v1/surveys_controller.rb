@@ -1,6 +1,5 @@
 class Api::V1::SurveysController < ApplicationController
-  protect_from_forgery with: :null_session
-  include Errors
+  before_action :find_survey, only: %i[create]
 
   def create
     return build_bulk_response if params[:posts_list].present?
@@ -37,24 +36,23 @@ class Api::V1::SurveysController < ApplicationController
       return
     end
 
-    build_feedback(object)
+    build_feedback
   end
 
   def build_bulk_response
-    find_survey
     feedback = Feedback.new(survey: @survey)
 
     BulkForm::FORM.build_bulk_response(params[:posts_list], feedback, @survey)
-    render json: 'feedbacks are added', status: :created
+    render json: 'responses are added', status: :created
   end
 
   def find_survey
     @survey = Survey.find(params[:id])
   end
 
-  def build_feedback(object)
+  def build_feedback
     feedback = Feedback.new
-    feedback.survey_id = object.set_survey_id
+    feedback.survey_id = @survey.id
 
     feedback
   end
